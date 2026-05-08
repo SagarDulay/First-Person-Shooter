@@ -7,35 +7,51 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private float lookSensitivity; 
     public Vector3 lookRotationDirection;
 
+
     private Camera firstPersonCamera;
     private CharacterController characterController;
+    private CustomPhysicsModule customPhysicsModule;
 
 
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
         firstPersonCamera = GetComponentInChildren<Camera>();
+        customPhysicsModule = GetComponent<CustomPhysicsModule>();
     }
 
     void Update()
+    {
+        MoveInput();
+        LookInput();
+    }
+
+    private void MoveInput()
     {
         movementDirection.x = Input.GetAxisRaw("Horizontal");
         movementDirection.z = Input.GetAxisRaw("Vertical");
 
         movementDirection = movementDirection.normalized;
+
         Vector3 forwardDirection = characterController.transform.forward * movementDirection.z;
         Vector3 rightDirection = characterController.transform.right * movementDirection.x;
+        Vector3 gravityDirection = customPhysicsModule.upDownForce;
 
-        characterController.Move((forwardDirection + rightDirection) * Time.deltaTime * moveSpeed);
+        Vector3 movementInput = forwardDirection + rightDirection;
+        Vector3 totalMovement = (movementInput * moveSpeed) + gravityDirection;
 
- 
+        characterController.Move(totalMovement * Time.deltaTime);
+    }
 
-        lookRotationDirection.y += Input.GetAxisRaw("Mouse X") * Time.deltaTime * lookSensitivity;
-        lookRotationDirection.x -= Input.GetAxisRaw("Mouse Y") * Time.deltaTime * lookSensitivity;
+    private void LookInput()
+    {
+        
+    }
 
-        lookRotationDirection.x = Mathf.Clamp(lookRotationDirection.x , -80, 80);
+    private void 
 
-        firstPersonCamera.transform.eulerAngles = new Vector3(lookRotationDirection.x, 0, 0);
-        characterController.transform.eulerAngles = new Vector3(0, lookRotationDirection.y, 0);
+    JumpInput()
+    {
+        if (input)
     }
 }
