@@ -13,7 +13,7 @@ public class Projectile : MonoBehaviour
     void Start()
     {     
         Invoke("ResetBullet", 10f);
-        projectileRigidbody.linearVelocity = transform.forward = projectileSpeed;
+        projectileRigidbody.linearVelocity = transform.forward * projectileSpeed;
     }
 
     

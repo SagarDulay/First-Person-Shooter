@@ -4,26 +4,34 @@ public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
     public Vector3 movementDirection;
+
     [SerializeField] private float lookSensitivity; 
     public Vector3 lookRotationDirection;
+
+    [SerializeField] public float jumpForce;
 
 
     private Camera firstPersonCamera;
     private CharacterController characterController;
     private CustomPhysicsModule customPhysicsModule;
+    private ShootingModule shootingModule;
 
 
     void Awake()
     {
-        characterController = GetComponent<CharacterController>();
         firstPersonCamera = GetComponentInChildren<Camera>();
+
+        characterController = GetComponent<CharacterController>();
         customPhysicsModule = GetComponent<CustomPhysicsModule>();
+        shootingModule = GetComponent<ShootingModule>();
     }
 
     void Update()
     {
+        JumpInput();
         MoveInput();
         LookInput();
+        ShootInput();
     }
 
     private void MoveInput()
@@ -45,13 +53,28 @@ public class PlayerInput : MonoBehaviour
 
     private void LookInput()
     {
-        
+        lookRotationDirection.y += Input.GetAxisRaw("Mouse X") * Time.deltaTime * lookSensitivity;
+        lookRotationDirection.x -= Input.GetAxisRaw("Mouse Y") * Time.deltaTime * lookSensitivity;
+
+        lookRotationDirection.x = Mathf.Clamp(lookRotationDirection.x, -80, 80);
+
+        firstPersonCamera.transform.localEulerAngles = new Vector3(lookRotationDirection.x, 0, 0);
+        characterController.transform.eulerAngles = new Vector3(0, lookRotationDirection.y, 0);
     }
 
-    private void 
-
-    JumpInput()
+    private void JumpInput()
     {
-        if (input)
+        if(Input.GetKeyDown(KeyCode.Space))
+        { 
+            customPhysicsModule.AddForceUpward(jumpForce);
+        }
+    }
+
+    private void ShootInput()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            shootingModule.Shoot();
+        }
     }
 }

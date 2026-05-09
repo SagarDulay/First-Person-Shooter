@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CustomPhysicsModule : MonoBehaviour
@@ -5,6 +6,7 @@ public class CustomPhysicsModule : MonoBehaviour
 
     [SerializeField] private float gravityForce = -9.8f;
     [SerializeField] private LayerMask walkableLayerMask;
+    [SerializeField] private float floorCheckRadius;
 
     public Vector3 upDownForce;
 
@@ -18,7 +20,7 @@ public class CustomPhysicsModule : MonoBehaviour
     
     void Update()
     {
-        if(CustomPhysicsModule.CheckSphere(transform.position, 0.075f, walkableLayerMask))
+        if(Physics.CheckSphere(transform.position, floorCheckRadius, walkableLayerMask))
         {
             upDownForce.y = 0;
         }
@@ -33,7 +35,7 @@ public class CustomPhysicsModule : MonoBehaviour
 
     public void AddForceUpward(float force)
     {
-        if(CustomPhysicsModule.CheckSphere(transform.position, 0.075f, walkableLayerMask))
+        if(Physics.CheckSphere(transform.position, floorCheckRadius, walkableLayerMask))
         {
             upDownForce.y = force;
         }
@@ -42,7 +44,7 @@ public class CustomPhysicsModule : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        OnDrawGizmos.DrawSphere(transform.position, 0.075f);
+        Gizmos.DrawSphere(transform.position, floorCheckRadius);
     }
 
 }
