@@ -73,7 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807fb125efaed40b4a96ee7167f4ea4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
-  projectileSpeed: 10
+  projectileSpeed: 50
 --- !u!1 &8651215950122454424
 GameObject:
   m_ObjectHideFlags: 0
