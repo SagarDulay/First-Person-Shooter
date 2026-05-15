@@ -3,15 +3,14 @@ using UnityEngine;
 public class DoorTrigger : MonoBehaviour
 {
     [SerializeField] private Animator doorAnimator;
-    private void OnTriggerEnter(Collider other)
+
+    private void OnTriggerEnter()
     {
         doorAnimator.SetBool("IsOpen", true);
-    
     }
 
-    private void  OnTriggerExit(Collider other)
+    private void OnTriggerExit()
     {
         doorAnimator.SetBool("IsOpen", false);
- 
     }
 }

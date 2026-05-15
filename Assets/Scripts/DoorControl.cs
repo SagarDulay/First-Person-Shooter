@@ -5,8 +5,8 @@ public class DoorControl : MonoBehaviour
     [SerializeField] private GameObject triggerGameObject;
     [SerializeField] private MeshRenderer doorRenderer;
     [SerializeField] private bool unlocked;
-    
-    
+
+
     private void Start()
     {
         if(unlocked)
@@ -18,9 +18,8 @@ public class DoorControl : MonoBehaviour
             LockDoor();
         }
     }
-    
-    
-    
+
+
     public void UnlockDoor()
     {
         unlocked = true;
@@ -28,11 +27,10 @@ public class DoorControl : MonoBehaviour
         doorRenderer.material.color = Color.blue;
     }
 
-    
     public void LockDoor()
     {
         unlocked = false;
         triggerGameObject.SetActive(false);
-        doorRenderer.material.color = Color.red;    
+        doorRenderer.material.color = Color.red;
     }
 }
