@@ -15,6 +15,7 @@ public class PlayerInput : MonoBehaviour
     private CharacterController characterController;
     private CustomPhysicsModule customPhysicsModule;
     private ShootingModule shootingModule;
+    private PlayerInteractorModule interactorModule;
 
 
     void Awake()
@@ -28,6 +29,7 @@ public class PlayerInput : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         customPhysicsModule = GetComponent<CustomPhysicsModule>();
         shootingModule = GetComponent<ShootingModule>();
+        interactorModule = GetComponent<PlayerInteractorModule>();
     }
 
     void Update()
@@ -36,6 +38,7 @@ public class PlayerInput : MonoBehaviour
         MoveInput();
         LookInput();
         ShootInput();
+        InteractInput();
     }
 
     private void MoveInput()
@@ -79,6 +82,17 @@ public class PlayerInput : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             shootingModule.Shoot();
+        }
+    }
+    private void InteractInput()
+    {
+        if(Input.GetMouseButtonDown(1))
+        {
+            interactorModule.InteractWith();
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            interactorModule.StopInteractWith();
         }
     }
 }

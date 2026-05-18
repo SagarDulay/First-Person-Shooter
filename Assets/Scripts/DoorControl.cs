@@ -9,7 +9,7 @@ public class DoorControl : MonoBehaviour
 
     private void Start()
     {
-        if(unlocked)
+        if (unlocked)
         {
             UnlockDoor();
         }
@@ -26,6 +26,8 @@ public class DoorControl : MonoBehaviour
         triggerGameObject.SetActive(true);
         doorRenderer.material.color = Color.blue;
     }
+    
+
 
     public void LockDoor()
     {
