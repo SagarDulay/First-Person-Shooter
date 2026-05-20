@@ -7,7 +7,7 @@ public class PlayerInteractorModule : MonoBehaviour
     [SerializeField] private LayerMask interactableLayers;
 
     private GameObject selectedObject;
-    private Interactable pickedUpObject;
+    public Interactable pickedUpObject;
     void Update()
     {
         Ray ray = new Ray(interactionRayOrigin.position, interactionRayOrigin.forward * interactionRange);

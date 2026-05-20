@@ -2,7 +2,11 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    public ProjectilePool poolParent;
+
     [SerializeField] private float projectileSpeed;
+
+
     private Rigidbody projectileRigidbody;
 
 
@@ -10,21 +14,24 @@ public class Projectile : MonoBehaviour
     {
         projectileRigidbody = GetComponent<Rigidbody>();
     }
-    void Start()
+    public void StartBullet()
     {     
         Invoke("ResetBullet", 10f);
         projectileRigidbody.linearVelocity = transform.forward * projectileSpeed;
     }
 
-    
-    void Update()
+
+    public void ResetBullet()
     {
+        projectileRigidbody.linearVelocity = Vector3.zero;
+        projectileRigidbody.angularVelocity = Vector3.zero;
+
+        poolParent.SendBackToAvailable(this);
         
     }
 
-    void ResetBullet()
+    private void OnCollisionEnter(Collision collision)
     {
-        Destroy(gameObject);
+        ResetBullet();
     }
-
 }

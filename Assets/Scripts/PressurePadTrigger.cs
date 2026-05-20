@@ -6,14 +6,22 @@ public class PressurePadTrigger : MonoBehaviour
     public UnityEvent OnPressureActivate;
     public UnityEvent OnPressureDeactivate;
 
+    public Rigidbody correctRigidbody;
 
-    private void OnTriggerEnter(Collider other)
+
+    protected virtual void OnTriggerEnter(Collider other)
     {
-        OnPressureActivate.Invoke();
+        if(other.attachedRigidbody== correctRigidbody)
+        {
+            OnPressureActivate.Invoke();
+        }
     }
 
-    private void OnTriggerExit(Collider other)
+    protected virtual void OnTriggerExit(Collider other)
     {
-        OnPressureDeactivate.Invoke();
+        if(other.attachedRigidbody == correctRigidbody)
+        {
+            OnPressureDeactivate.Invoke();
+        }
     }
 }
