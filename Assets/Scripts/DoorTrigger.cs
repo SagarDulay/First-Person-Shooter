@@ -8,7 +8,7 @@ public class DoorTrigger : MonoBehaviour
 
     private void OnTriggerEnter()
     {
-        ForceCloseDoor();
+        ForceOpenDoor();
         
     }
 
@@ -19,7 +19,7 @@ public class DoorTrigger : MonoBehaviour
     }
     private void ForceOpenDoor()
     {
-        doorAnimator.SetBool("IsOpen", false);
+        doorAnimator.SetBool("IsOpen", true);
     }
 
     private void ForceCloseDoor()

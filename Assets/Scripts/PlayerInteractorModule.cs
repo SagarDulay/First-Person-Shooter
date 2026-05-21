@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerInteractorModule : MonoBehaviour
@@ -5,6 +6,7 @@ public class PlayerInteractorModule : MonoBehaviour
     [SerializeField] private Transform interactionRayOrigin;
     [SerializeField] private float interactionRange;
     [SerializeField] private LayerMask interactableLayers;
+    [SerializeField] private TextMeshProUGUI interactNotiText;
 
     private GameObject selectedObject;
     public Interactable pickedUpObject;
@@ -16,10 +18,12 @@ public class PlayerInteractorModule : MonoBehaviour
         if( Physics.Raycast(ray, out hitInfo, interactionRange, interactableLayers))
         {
             selectedObject = hitInfo.collider.gameObject;
+            interactNotiText.gameObject.SetActive(true);
         }
         else
         {
-            selectedObject = null;
+            selectedObject = null; 
+            interactNotiText.gameObject.SetActive(false);
         }
     }
 
