@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager Instance;
 
     [SerializeField] private PlayerInput playerInput;
 
@@ -11,11 +11,11 @@ public class GameManager : MonoBehaviour
     public float timer;
 
 
-    void Start()
+    void Awake()
     {
-        if(instance == null)
+        if(Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
@@ -35,5 +35,9 @@ public class GameManager : MonoBehaviour
     public void UnlockPlayerInput()
     {
         playerInput.enabled = true;
+    }
+    public PlayerInput GetPlayer()
+    {
+        return playerInput;
     }
 }
