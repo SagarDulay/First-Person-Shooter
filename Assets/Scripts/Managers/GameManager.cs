@@ -22,7 +22,10 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    private void Start()
+    {
+        playerInput.GetComponent<HealthModule>().OnHealthZero += GameOver;
+    }
     private void Update()
     {
         timer += Time.deltaTime;
@@ -39,5 +42,10 @@ public class GameManager : MonoBehaviour
     public PlayerInput GetPlayer()
     {
         return playerInput;
+    }
+
+    private void GameOver()
+    {
+        LockPlayerInput();
     }
 }
