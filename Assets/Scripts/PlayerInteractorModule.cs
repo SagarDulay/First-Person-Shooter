@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -6,7 +7,8 @@ public class PlayerInteractorModule : MonoBehaviour
     [SerializeField] private Transform interactionRayOrigin;
     [SerializeField] private float interactionRange;
     [SerializeField] private LayerMask interactableLayers;
-    [SerializeField] private TextMeshProUGUI interactNotiText;
+
+    public Action<GameObject> OnNewInteractionFound;
 
     private GameObject selectedObject;
     public Interactable pickedUpObject;
@@ -15,15 +17,24 @@ public class PlayerInteractorModule : MonoBehaviour
         Ray ray = new Ray(interactionRayOrigin.position, interactionRayOrigin.forward * interactionRange);
 
         RaycastHit hitInfo;
+
         if( Physics.Raycast(ray, out hitInfo, interactionRange, interactableLayers))
         {
-            selectedObject = hitInfo.collider.gameObject;
-            interactNotiText.gameObject.SetActive(true);
+            if(selectedObject != hitInfo.collider.gameObject)
+            {
+                selectedObject = hitInfo.collider.gameObject;
+                OnNewInteractionFound?.Invoke(selectedObject);
+            }
+
+            
         }
         else
         {
-            selectedObject = null; 
-            interactNotiText.gameObject.SetActive(false);
+            if (selectedObject != null)
+            {
+                selectedObject = null;
+                OnNewInteractionFound?.Invoke(null);
+            }
         }
     }
 
